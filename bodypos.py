@@ -2,6 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import math
+import time
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -60,6 +61,13 @@ def find_centerpointZ(left, right):
         zcenter = left
         
     return zcenter
+
+def coordinate_variable(landmark_name):
+    body_points = ()
+    body_points = (landmarks[mp_pose.PoseLandmark.landmark_name.value].x, 
+                    landmarks[mp_pose.PoseLandmark.landmark_name.value].y,
+                    landmarks[mp_pose.PoseLandmark.landmark_name.value].z)
+    return body_points
 
 cap = cv2.VideoCapture(0)
 ## Setup mediapipe instance
