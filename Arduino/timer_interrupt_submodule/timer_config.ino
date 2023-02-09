@@ -1,3 +1,15 @@
+/**
+ * Calculations for OCR0A register
+ * compare match register (OCR0A) = [ 16,000,000Hz/ (prescaler * desired interrupt frequency) ] - 1
+ * 
+ * Prescalar for TimerA (CS02, CS01, CS00)
+ * Prescalar for TimerB (CS12, CS11, CS10)
+ * 8:    010
+ * 64:   011
+ * 256:  100
+ * 1024: 101
+ */
+
 // setup timer interrupt for x, y drive
 void timerConfig() {
   // disable all interrupts  
