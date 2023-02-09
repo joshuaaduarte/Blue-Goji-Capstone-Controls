@@ -23,11 +23,11 @@ void loop() {
   switch (currState) {
     case IDLING:
       Serial.println("IDLE");
+      digitalWrite(relay, LOW);  // turn on relay
       if (stopFlag) {
         currState = STOP;
       } else if (startFlag) {
         currState = NORMAL;
-        digitalWrite(relay, LOW);  // turn on relay
       }
       break;
     case NORMAL:
