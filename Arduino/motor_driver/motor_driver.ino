@@ -39,7 +39,7 @@ void loop(){
 
 void motorInit() {
   motorX.setDir(1); //forward
-  motorY.setDir(0); //backward
+  motorY.setDir(1); //forward (1), backward (0);
 }
 
 const byte numChars = 32;

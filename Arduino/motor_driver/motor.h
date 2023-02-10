@@ -10,8 +10,8 @@ class Motor {
 
   public:
     // public fields
-    uint8_t targetSpeed;
-    uint8_t currSpeed;
+    int targetSpeed;
+    int currSpeed;
     uint8_t dir;
     // constructor
     Motor(uint8_t pwm, uint8_t in1, uint8_t in2);
@@ -21,7 +21,7 @@ class Motor {
     uint8_t getIn2Pin();
     // setters
     void setDir(uint8_t forward);
-    void setTargetVel(uint8_t vel);
+    void setTargetVel(int vel);
     // motor driving functions
     void brake();
     void coast();

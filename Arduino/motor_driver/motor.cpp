@@ -22,11 +22,11 @@ uint8_t Motor::getIn2Pin() {
 
 // setters
 void Motor::setDir(uint8_t forward) {
-  dir = forward;
+  Motor::dir = forward;
   digitalWrite(in1, dir);
   digitalWrite(in2, !dir);
 }
-void Motor::setTargetVel(uint8_t vel) {
+void Motor::setTargetVel(int vel) {
   targetSpeed = vel;
 }
 
@@ -45,7 +45,12 @@ void Motor::updateVel() {
   if(currSpeed < targetSpeed) {
     currSpeed = min(currSpeed+1, 255);
   } else if (currSpeed > targetSpeed) {
-    currSpeed = max(currSpeed-1, 0);
+    currSpeed = max(currSpeed-1, -255);
   }
-  analogWrite(pwm, currSpeed);
+  analogWrite(pwm, abs(currSpeed));
+  if (currSpeed == 0 && currSpeed > targetSpeed) { // if target is backward
+    Motor::setDir(0);
+  } else if (currSpeed == 0 && currSpeed > targetSpeed) { // if target is forward
+    Motor::setDir(1);
+  }
 }
