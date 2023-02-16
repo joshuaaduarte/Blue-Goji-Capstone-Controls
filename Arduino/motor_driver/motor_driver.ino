@@ -1,10 +1,10 @@
 #include "motor.h"
 
-#define pwmA 3
+#define pwmA 9
 #define in1A 7
 #define in2A 8 
 #define pwmB 11
-#define in3B 9
+#define in3B 12
 #define in4B 10
 
 Motor motorX(pwmA, in1A, in2A);
