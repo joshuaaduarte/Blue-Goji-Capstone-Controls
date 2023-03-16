@@ -9,12 +9,14 @@
 #define SERIAL_H
 
 #include "stdint.h"
+#include <SoftwareSerial.h>
 
+extern SoftwareSerial port;
 extern const uint8_t numChars;
 extern char receivedChars[];   // an array to store the received data
 
 extern const uint8_t numPackets;
-extern int receivedInt[];      // an array to store the received decoded data
+extern float receivedFloat[];      // an array to store the received decoded data
 
 void recvWithEndMarker();
 void parseData(char* tempChars);

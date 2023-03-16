@@ -60,29 +60,33 @@ void loop() {
 
 void idleRun() {
   Serial.println("I ");
-  memset(receivedInt, 0, sizeof(int)*numPackets); // reset serial buffer
+  memset(receivedFloat, 0, sizeof(int)*numPackets); // reset serial buffer
   motorX.setTargetVel((unsigned int)0);
   motorY.setTargetVel((unsigned int)0);
   digitalWrite(relay, LOW);  // turn on relay
 }
 
 void normalRun() {
-  Serial.println("N ");
+//  Serial.println("N ");
   // receive data from serial monitor
   recvWithEndMarker();
-  unsigned int targetSpeedX = receivedInt[0]; 
-  unsigned int targetSpeedY = receivedInt[1];
+  Serial.println("run:\t"+(String)receivedFloat[0] + ", " + (String)receivedFloat[1]);
+  if (port.overflow()){ // health check
+    Serial.println("OVERFLOWWWW");
+  }
   // update motor values
-  motorX.setTargetVel(targetSpeedX);
-  motorY.setTargetVel(targetSpeedY);
+  float targetSpeedX = receivedFloat[0];
+  float targetSpeedY = receivedFloat[1];
+  motorX.setTargetVel(map(targetSpeedX, 0, 15, 0, 255));
+  motorY.setTargetVel(map(targetSpeedY, 0, 15, 0, 255));
   // print speed;
-  Serial.println((String)motorX.targetSpeed + ":" + (String)motorX.currSpeed + ", " + (String)motorY.targetSpeed + ": " + (String)motorY.currSpeed);
+//  Serial.println((String)motorX.targetSpeed + ":" + (String)motorX.currSpeed + ", " + (String)motorY.targetSpeed + ": " + (String)motorY.currSpeed);
 }
 
 void stopRun() {
   Serial.println("S");
   // clear receivedInt buffer
-  memset(receivedInt, 0, sizeof(int)*numPackets);
+  memset(receivedFloat, 0, sizeof(int)*numPackets);
   motorX.setTargetVel((unsigned int)0);
   motorY.setTargetVel((unsigned int)0);
   digitalWrite(relay, HIGH);  // turn off relay
@@ -101,6 +105,7 @@ void boardInit(){
 // begin serial communication channel at 9600 baud rate
 void uartInit() {
   Serial.begin(9600);
+  port.begin(9600);
 }
 
 // setup motor directions and speeds
