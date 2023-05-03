@@ -8,40 +8,37 @@
 #include "serial.h"
 #include <stdint.h>
 #include <Arduino.h>
-#include <SoftwareSerial.h>
 
-// Define the SoftwareSerial object
-SoftwareSerial port(A4, A5);  // RX, TX
-
-const uint8_t numChars = 32;
+const uint8_t numChars = 255;
 char receivedChars[numChars];   // an array to store the received data
 
 const uint8_t numPackets = 32;
-float receivedFloat[numPackets];
+float receivedInt[numPackets];
 
 void recvWithEndMarker() {
   static uint8_t ndx = 0;
   static uint8_t commaIdx = 0;
   char endMarker = '\n';
   char rc;
-  while (port.available() > 0) {  
+  
+  if (port.available() > 0) {
     rc = port.read();
+    
     if (rc != endMarker) {
       receivedChars[ndx] = rc;
       ndx++;
       if (ndx >= numChars) {
           ndx = numChars - 1;
+          Serial.println("Larger");
       }
     } else {
       receivedChars[ndx] = '\0'; // terminate the string
       char tempChars[numChars];
       strcpy(tempChars, receivedChars);
-      Serial.println(tempChars);
       // this temporary copy is necessary to protect the original data
       //   because strtok() used in parseData() replaces the commas with \0
-      memset(receivedFloat, 0, sizeof(int)*numPackets);
+//      Serial.println(tempChars);
       parseData(tempChars);
-      Serial.println("serial:\t"+(String)receivedFloat[0] + ", " + (String)receivedFloat[1]);
       ndx = 0;
     }
   }
@@ -51,11 +48,10 @@ void parseData(char* tempChars) {      // split the data into its parts
   char * token; // this is used by strtok() as an index
   int idx = 0;
   token = strtok(tempChars, ",");
-  
   while ( token != NULL) {
-    float floatToken = atof(token); // process previous one to int (atof to float, etc.)
-//    Serial.println(floatToken);
-    receivedFloat[idx] = floatToken;
+    float intToken = atof(token); // process previous one to int (atof to float, etc.)
+
+    receivedInt[idx] = intToken;
     idx++;
     token = strtok(NULL, ","); // prepare for the next
   }

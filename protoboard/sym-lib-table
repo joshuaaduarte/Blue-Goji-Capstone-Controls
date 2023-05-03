@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "protoboard-eagle-import")(type "KiCad")(uri "${KIPRJMOD}/protoboard-eagle-import.kicad_sym")(options "")(descr ""))
+  (lib (name "ProtoShield_V4.0-eagle-import")(type "KiCad")(uri "C:/Users/USER/Desktop/UCB/Blue Goji/ProtoShield_V4.0/ProtoShield_V4.0/ProtoShield_V4.0-eagle-import.kicad_sym")(options "")(descr ""))
+)

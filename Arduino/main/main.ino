@@ -17,8 +17,8 @@ volatile state currState = IDLING;
 static unsigned long lastInterruptTime = 0;
 
 // instantiate the two motors
-Motor motorX(pwmA, in1A, in2A);
-Motor motorY(pwmB, in3B, in4B);
+Motor motorX(pwmA, fwA, enA);
+Motor motorY(pwmB, fwB, enB);
 
 /*************ARDUINO MAIN CODE*************/
 

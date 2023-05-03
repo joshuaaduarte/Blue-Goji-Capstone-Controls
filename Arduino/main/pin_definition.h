@@ -8,15 +8,22 @@
 #ifndef PIN_DEFINITION_H
 #define PIN_DEFINITION_H
 
+// motor pin definitions
 #define pwmA 6
-#define in1A 7
-#define in2A 8 
 #define pwmB 11
-#define in3B 12
-#define in4B 10
+#define fwA 7 // equivalent to in1A, in2A is obtained by negating this signal
+#define fwB 8
+#define enA 12 // only used in big motors
+#define enB 13
 
-#define startButton 2  // Yellow
-#define emergencyButton 3 // Green
-#define relay 4
+// Pin definitions for load cells
+#define clk 3
+#define dat_lc1 14
+#define dat_lc2 15
+#define dat_lc3 16
+#define dat_lc4 17
+
+#define startButton 2  // Green
+#define emergencyButton 4 // Yellow
 
 #endif

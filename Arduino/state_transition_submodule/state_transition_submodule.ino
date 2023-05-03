@@ -1,6 +1,6 @@
 #define startButton 2  // Yellow
 #define emergencyButton 3 // Green
-#define relay 4 
+#define relay 4
 
 // global flags
 volatile int startFlag = 0;
